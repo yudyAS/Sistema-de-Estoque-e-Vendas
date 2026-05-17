@@ -1,6 +1,6 @@
 from produto import listar_produtos_codigo, listar_produtos_categoria
 from estoque import cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
-from arquivos import salvar_dados, carregar_dados
+# from arquivos import salvar_dados, carregar_dados
 
 while True:
 
@@ -31,11 +31,11 @@ while True:
         case 5:
             buscar_nome()
         case 6:
-            listar_produtos_codigo()
-        case 7:
-            listar_produtos_categoria()
-        case 8:
             print("cadastrar()")
+        case 7:
+            listar_produtos_codigo()
+        case 8:
+            listar_produtos_categoria()
         case 9:
             print("cadastrar()")
         case 10:

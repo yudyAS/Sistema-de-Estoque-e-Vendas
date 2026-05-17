@@ -1,6 +1,39 @@
-from estoque import produtos
+from estoque import produtos, cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
 
-#Editar produto (nome, preco, quantidade, categoria)
+def editar_produto():
+
+    codigo = int(input("Digite o código do produto: "))
+
+    indice = busca_binaria(produtos, codigo)
+
+    if indice != -1:
+
+        print("Produto encontrado!")
+
+        novo_nome = input("Novo nome: ")
+        nova_categoria = input("Nova categoria: ")
+        novo_preco = float(input("Novo preço: "))
+        nova_qtd = int(input("Nova quantidade: "))
+
+        # validações
+        if novo_preco <= 0:
+            print("Preço inválido.")
+            return
+
+        if nova_qtd < 0:
+            print("Quantidade inválida.")
+            return
+
+        # Edição do produto
+        produtos[indice]["nome"] = novo_nome
+        produtos[indice]["catg"] = nova_categoria
+        produtos[indice]["preco"] = novo_preco
+        produtos[indice]["qtd"] = nova_qtd
+
+        print("Produto editado com sucesso!")
+
+    else:
+        print("Produto não encontrado.")
 
 #Remover produto pelo codigo
 

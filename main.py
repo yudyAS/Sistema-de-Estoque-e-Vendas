@@ -1,6 +1,6 @@
 from produto import listar_produtos_codigo, listar_produtos_categoria
 from estoque import cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
-# from arquivos import salvar_dados, carregar_dados
+from arquivos import salvar_dados, carregar_dados
 
 while True:
 
@@ -39,7 +39,15 @@ while True:
         case 9:
             print("cadastrar()")
         case 10:
-            print("cadastrar()")
+            print("1 - Salvar dados")
+            print("2 - Carregar dados")
+            sub = int(input("Escolha a opção: "))
+            if sub == 1:
+                salvar_dados()
+            elif sub == 2:
+                carregar_dados()
+            else:
+                print("Opção inválida.")
         case 0:
             print("Saindo")
             break

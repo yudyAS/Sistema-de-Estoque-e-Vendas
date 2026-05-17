@@ -42,17 +42,26 @@ def editar_produto():
 #Relatorio de estoque baixo (quantidade < limite configuravel)
 
 def listar_produtos_codigo():
+    if not produtos:
+        print("Nenhum produto cadastrado.")
+        return
     for produto in produtos:
+        print("-----------------------------")
         print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
             f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
             f"Quantidade: {produto['qtd']}")
 
 def listar_produtos_categoria():
+    if not produtos:
+        print("Nenhum produto cadastrado.")
+        return
+
     categoria = input("Digite a categoria do produto: ")
     encontrou = False
     for produto in produtos:
         if produto['catg'] == categoria:
             encontrou = True
+            print("-----------------------------")
             print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
                 f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
                 f"Quantidade: {produto['qtd']}")

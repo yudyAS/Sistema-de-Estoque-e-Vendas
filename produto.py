@@ -36,10 +36,67 @@ def editar_produto():
         print("Produto não encontrado.")
 
 #Remover produto pelo codigo
+def remover_produto():
+
+    codigo = int(input("Digite o código do produto que deseja remover: "))
+
+    indice = busca_binaria(produtos, codigo)
+
+    if indice != -1:
+        produto_removido = produtos.pop(indice)
+        print(f"Produto {produto_removido['nome']} removido com sucesso!")
+    else:
+        print("Produto não encontrado.")
 
 #Registrar venda (reduz estoque, valida quantidade)
+def registrar_venda():
+
+    codigo = int(input("Digite o código do produto: "))
+
+    indice = busca_binaria(produtos, codigo)
+
+    if indice == -1:
+        print("Produto não encontrado.")
+        return
+
+    quantidade_venda = int(input("Digite a quantidade vendida: "))
+
+    if quantidade_venda <= 0:
+        print("Quantidade inválida.")
+        return
+
+    if quantidade_venda > produtos[indice]["qtd"]:
+        print("Estoque insuficiente.")
+        return
+
+    produtos[indice]["qtd"] -= quantidade_venda
+
+    print("Venda registrada com sucesso!")
+    print(f"Estoque restante: {produtos[indice]['qtd']}")
 
 #Relatorio de estoque baixo (quantidade < limite configuravel)
+def relatorio_estoque_baixo():
+
+    limite = int(input("Digite o limite mínimo de estoque: "))
+
+    encontrou = False
+
+    print("\n--- RELATÓRIO DE ESTOQUE BAIXO ---")
+
+    for produto in produtos:
+
+        if produto["qtd"] < limite:
+            encontrou = True
+
+            print("-----------------------------")
+            print(f"Código: {produto['codigo']}")
+            print(f"Nome: {produto['nome']}")
+            print(f"Categoria: {produto['catg']}")
+            print(f"Preço: R$ {produto['preco']}")
+            print(f"Quantidade: {produto['qtd']}")
+
+    if not encontrou:
+        print("Nenhum produto com estoque baixo.")
 
 def listar_produtos_codigo():
     if not produtos:

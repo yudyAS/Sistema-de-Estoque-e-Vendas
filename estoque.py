@@ -54,10 +54,14 @@ def busca_binaria(lista, codigo):
 
 def buscar_nome():
     nome = input("Digite o nome do produto: ")
+    encontrou = False
+    
     for produto in produtos:
         if produto["nome"].lower() == nome.lower():
+            encontrou = True
             print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
                 f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
                 f"Quantidade: {produto['qtd']}")
-        else:
-            print("Produto não encontrado.")
+    
+    if not encontrou:
+        print("Produto não encontrado.")

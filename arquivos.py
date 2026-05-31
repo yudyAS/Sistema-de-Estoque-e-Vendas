@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 from estoque import produtos
 
@@ -42,4 +43,5 @@ def carregar_dados(caminho: str = CAMINHO_PADRAO) -> None:
     produtos.clear()
     produtos.extend(sorted(dados, key=lambda produto: produto.get("codigo", 0)))
     print(f"Dados carregados com sucesso de: {caminho}")
+    time.sleep(2)
  

@@ -1,0 +1,23 @@
+[
+  {
+    "codigo": 1,
+    "nome": "Caneta Esferográfica",
+    "catg": "Papelaria",
+    "preco": 2.50,
+    "qtd": 100
+  },
+  {
+    "codigo": 2,
+    "nome": "Caderno 100 folhas",
+    "catg": "Papelaria",
+    "preco": 12.90,
+    "qtd": 50
+  },
+  {
+    "codigo": 3,
+    "nome": "Mouse Sem Fio",
+    "catg": "Informática",
+    "preco": 45.00,
+    "qtd": 25
+  }
+]

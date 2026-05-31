@@ -1,13 +1,78 @@
 # Inserir Produtos
+import time
+
+
+def ler_inteiro(prompt, min_value=None, positive_only=False):
+    while True:
+        valor = input(prompt).strip()
+        if not valor:
+            print("Entrada vazia. Digite um número inteiro.")
+            continue
+        try:
+            numero = int(valor)
+        except ValueError:
+            print("Valor inválido. Digite um número inteiro.")
+            continue
+        if positive_only and numero <= 0:
+            print("Digite um número inteiro maior que zero.")
+            continue
+        if min_value is not None and numero < min_value:
+            print(f"Digite um número inteiro maior ou igual a {min_value}.")
+            continue
+        return numero
+
+
+def ler_float(prompt, min_value=None, positive_only=False):
+    while True:
+        valor = input(prompt).strip()
+        if not valor:
+            print("Entrada vazia. Digite um número.")
+            continue
+        try:
+            numero = float(valor)
+        except ValueError:
+            print("Valor inválido. Digite um número.")
+            continue
+        if positive_only and numero <= 0:
+            print("Digite um número maior que zero.")
+            continue
+        if min_value is not None and numero < min_value:
+            print(f"Digite um número maior ou igual a {min_value}.")
+            continue
+        return numero
+
+
+def ler_texto(prompt):
+    while True:
+        texto = input(prompt).strip()
+        if texto:
+            return texto
+        print("Entrada vazia. Digite um texto válido.")
+
+
 produtos = []
 
 # Cadastro de produtos
 def cadastrar_produto():
-    cod = int(input("Digite o código do produto: "))
-    nome = input("Digite o nome do produto: ")
-    catg = input("Digite a categoria do produto: ")
-    preco = float(input("Digite o preço (R$): "))
-    qtd = int(input("Digite a quantidade: "))
+    cod = ler_inteiro("Digite o código do produto: ", min_value=1)
+    nome = ler_texto("Digite o nome do produto: ")
+    catg = ler_texto("Digite a categoria do produto: ")
+    preco = ler_float("Digite o preço (R$): ", min_value=0.01)
+    qtd = ler_inteiro("Digite a quantidade: ", min_value=0)
+
+    # Validações
+    if preco <= 0:
+        print("Preço inválido. O preço deve ser maior que zero.")
+        time.sleep(2)
+        return
+    if qtd < 0:
+        print("Quantidade inválida. A quantidade não pode ser negativa.")
+        time.sleep(2)
+        return
+    if busca_binaria(produtos, cod) != -1:
+        print("Código já existe. Por favor, use um código único.")
+        time.sleep(2)
+        return
 
     inserir_ordenado({"codigo": cod, "nome": nome, "catg": catg, "preco": preco, "qtd": qtd})
 
@@ -24,7 +89,7 @@ def inserir_ordenado(produto):
 # Buscar Produtos
 # Vai bucar o produto utilizando o método de busca binária, que é mais eficiente para listas ordenadas.
 def buscar_codigo():
-    cod = int(input("Digite o código do produto: "))
+    cod = ler_inteiro("Digite o código do produto: ", min_value=1)
     indice = busca_binaria(produtos, cod)
 
     if indice != -1:
@@ -53,7 +118,7 @@ def busca_binaria(lista, codigo):
     return -1
 
 def buscar_nome():
-    nome = input("Digite o nome do produto: ")
+    nome = ler_texto("Digite o nome do produto: ")
     encontrou = False
     
     for produto in produtos:

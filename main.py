@@ -1,4 +1,4 @@
-from produto import listar_produtos_codigo, listar_produtos_categoria, remover_produto, registrar_venda, relatorio_estoque_baixo
+from produto import listar_produtos_codigo, listar_produtos_categoria, remover_produto, registrar_venda, relatorio_estoque_baixo, editar_produto
 from estoque import cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
 from arquivos import salvar_dados, carregar_dados
 
@@ -6,7 +6,7 @@ while True:
 
     print("---------- MENU ---------")
     print("1 - Cadastrar Produto") #feito
-    print("2 - Editar produto")
+    print("2 - Editar produto") #feito
     print("3 - Remover produto") #feito
     print("4 - Buscar produto por código")#feito
     print("5 - Buscar produto por nome")#feito
@@ -17,13 +17,18 @@ while True:
     print("10 - Salvar e carregar dados em arquivo (CSV ou JSON)") #feito
     print("0 - Sair")
 
-    menu = int(input("Escolha a opção: "))
+    escolha = input("Escolha a opção: ").strip()
+    if not escolha.isdigit():
+        print("Opção inválida. Digite um número entre 0 e 10.")
+        continue
+
+    menu = int(escolha)
 
     match menu:
         case 1: 
             cadastrar_produto()
         case 2:
-            print("cadastrar()")
+            editar_produto()
         case 3:
             remover_produto()
         case 4:
@@ -41,7 +46,11 @@ while True:
         case 10:
             print("1 - Salvar dados")
             print("2 - Carregar dados")
-            sub = int(input("Escolha a opção: "))
+            sub = input("Escolha a opção: ").strip()
+            if not sub.isdigit():
+                print("Opção inválida.")
+                continue
+            sub = int(sub)
             if sub == 1:
                 salvar_dados()
             elif sub == 2:

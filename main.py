@@ -1,4 +1,4 @@
-from produto import listar_produtos_codigo, listar_produtos_categoria, remover_produto, registrar_venda, relatorio_estoque_baixo, editar_produto
+from produto import listar_produtos_codigo, listar_produtos_categoria, remover_produto, registrar_venda, relatorio_estoque_baixo, relatorio_preco_min_max, editar_produto
 from estoque import cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
 from arquivos import salvar_dados, carregar_dados
 
@@ -14,12 +14,13 @@ while True:
     print("7 - Listar produtos por código")#feito
     print("8 - Listar produtos por categoria")#feito
     print("9 - Relatório de estoque baixo (quantidade < limite configurável)") #feito
-    print("10 - Salvar e carregar dados em arquivo (CSV ou JSON)") #feito
+    print("10 - Relatório de menor/maior preço")
+    print("11 - Salvar e carregar dados em arquivo (CSV ou JSON)") #feito
     print("0 - Sair")
 
     escolha = input("Escolha a opção: ").strip()
     if not escolha.isdigit():
-        print("Opção inválida. Digite um número entre 0 e 10.")
+        print("Opção inválida. Digite um número entre 0 e 11.")
         continue
 
     menu = int(escolha)
@@ -44,6 +45,8 @@ while True:
         case 9:
             relatorio_estoque_baixo()
         case 10:
+            relatorio_preco_min_max()
+        case 11:
             print("1 - Salvar dados")
             print("2 - Carregar dados")
             sub = input("Escolha a opção: ").strip()

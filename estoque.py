@@ -50,6 +50,13 @@ def ler_texto(prompt):
         print("Entrada vazia. Digite um texto válido.")
 
 
+def pausar_paginacao(item_num, total, page_size=5):
+    if item_num % page_size == 0 and item_num < total:
+        resposta = input("Pressione Enter para continuar ou Q para sair... ").strip().lower()
+        return resposta != "q"
+    return True
+
+
 produtos = []
 
 # Cadastro de produtos
@@ -75,6 +82,8 @@ def cadastrar_produto():
         return
 
     inserir_ordenado({"codigo": cod, "nome": nome, "catg": catg, "preco": preco, "qtd": qtd})
+    from arquivos import log_operacao
+    log_operacao(f"Cadastrar produto: código {cod}, nome {nome}, categoria {catg}, preço {preco}, quantidade {qtd}")
 
 # Metodo de inserção ordenada, que insere o produto na lista e depois ordena a lista pelo código do produto.
 def inserir_ordenado(produto):
@@ -89,6 +98,8 @@ def inserir_ordenado(produto):
 # Buscar Produtos
 # Vai bucar o produto utilizando o método de busca binária, que é mais eficiente para listas ordenadas.
 def buscar_codigo():
+    from arquivos import log_operacao
+
     cod = ler_inteiro("Digite o código do produto: ", min_value=1)
     indice = busca_binaria(produtos, cod)
 
@@ -97,8 +108,10 @@ def buscar_codigo():
         print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
             f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
             f"Quantidade: {produto['qtd']}")
+        log_operacao(f"Buscar produto por código: código {cod}, encontrado")
     else:
         print("Produto não encontrado.")
+        log_operacao(f"Buscar produto por código: código {cod}, não encontrado")
 
 # Método de busca que divide a lista em partes para encontrar o produto mais rapidadamente.
 def busca_binaria(lista, codigo):
@@ -118,6 +131,8 @@ def busca_binaria(lista, codigo):
     return -1
 
 def buscar_nome():
+    from arquivos import log_operacao
+
     nome = ler_texto("Digite o nome do produto: ")
     encontrou = False
     
@@ -130,3 +145,6 @@ def buscar_nome():
     
     if not encontrou:
         print("Produto não encontrado.")
+        log_operacao(f"Buscar produto por nome: nome {nome}, não encontrado")
+    else:
+        log_operacao(f"Buscar produto por nome: nome {nome}, encontrado")

@@ -58,6 +58,7 @@ def pausar_paginacao(item_num, total, page_size=5):
 
 
 produtos = []
+produtos_ordenados = []
 
 # Cadastro de produtos
 def cadastrar_produto():
@@ -76,19 +77,21 @@ def cadastrar_produto():
         print("Quantidade inválida. A quantidade não pode ser negativa.")
         time.sleep(2)
         return
-    if busca_binaria(produtos, cod) != -1:
+    if busca_binaria(produtos_ordenados, cod) != -1:
         print("Código já existe. Por favor, use um código único.")
         time.sleep(2)
         return
 
-    inserir_ordenado({"codigo": cod, "nome": nome, "catg": catg, "preco": preco, "qtd": qtd})
+    produto = {"codigo": cod, "nome": nome, "catg": catg, "preco": preco, "qtd": qtd}
+    produtos.append(produto)
+    inserir_ordenado(produto)
     from arquivos import log_operacao
     log_operacao(f"Cadastrar produto: código {cod}, nome {nome}, categoria {catg}, preço {preco}, quantidade {qtd}")
 
-# Metodo de inserção ordenada, que insere o produto na lista e depois ordena a lista pelo código do produto.
+# Metodo de inserção ordenada, que insere o produto na lista ordenada por código.
 def inserir_ordenado(produto):
-    produtos.append(produto)
-    produtos.sort(key=lambda x: x["codigo"])
+    produtos_ordenados.append(produto)
+    produtos_ordenados.sort(key=lambda x: x["codigo"])
     print("Produto cadastrado com sucesso!")
     for produto in produtos:
         print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
@@ -101,10 +104,10 @@ def buscar_codigo():
     from arquivos import log_operacao
 
     cod = ler_inteiro("Digite o código do produto: ", min_value=1)
-    indice = busca_binaria(produtos, cod)
+    indice = busca_binaria(produtos_ordenados, cod)
 
     if indice != -1:
-        produto = produtos[indice]
+        produto = produtos_ordenados[indice]
         print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
             f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
             f"Quantidade: {produto['qtd']}")

@@ -1,74 +1,107 @@
-# Sistema-de-Estoque-e-Vendas
-Projeto 1 da matéria de Estrutura de dados Objetivo Construir um sistema de linha de comando para controlar produtos, vendas e relatorios. O projeto deve aplicar conteudos das secoes 2 a 5 (Python basico, Big-O, vetores nao ordenados e vetores ordenados).
+# Sistema de Estoque e Vendas 🚀
 
-# Projeto 1 - Sistema de Estoque e Vendas (Secao 2 a 5)
+Projeto 1 de Estrutura de Dados com interface de linha de comando para controlar produtos, vendas e relatórios.
+O sistema usa vetores ordenados e não ordenados conforme os requisitos de busca e armazenamento.
 
-## Objetivo
-Construir um sistema de linha de comando para controlar produtos, vendas e relatorios. O projeto deve aplicar conteudos das secoes 2 a 5 (Python basico, Big-O, vetores nao ordenados e vetores ordenados).
+## 🎯 Objetivo
+Construir um sistema em Python que permita:
+- cadastrar produtos com código único, nome, categoria, preço e quantidade;
+- editar e remover produtos;
+- buscar por código e por nome;
+- registrar vendas com atualização de estoque;
+- gerar relatórios de categoria, estoque baixo e menor/maior preço;
+- salvar e carregar dados em arquivo JSON.
 
-## Escopo do sistema
-- Cadastro de produtos com codigo, nome, categoria, preco e quantidade.
-- Registro de vendas e atualizacao de estoque.
-- Relatorios por categoria, menor/maior preco e produtos com baixo estoque.
+## ✅ Funcionalidades implementadas
+- ✅ Cadastro de produto com código único e validação de entradas.
+- ✅ Edição de nome, categoria, preço e quantidade.
+- ✅ Remoção por código.
+- ✅ Busca por código usando busca binária em vetor ordenado (`produtos_ordenados`).
+- ✅ Busca por nome usando busca linear em vetor não ordenado (`produtos`).
+- ✅ Registro de venda com verificação de estoque suficiente.
+- ✅ Listagem de produtos ordenados por código.
+- ✅ Listagem de produtos por categoria.
+- ✅ Relatório de estoque baixo com limite configurável.
+- ✅ Relatório de menor e maior preço.
+- ✅ Salvamento/carregamento de dados em JSON.
+- ✅ Logs simples de operações em `operacoes.log`.
+- ✅ Paginação básica nas listagens longas.
 
-## Requisitos funcionais (obrigatorios)
-1. Cadastrar produto (codigo unico).
-2. Editar produto (nome, preco, quantidade, categoria).
-3. Remover produto pelo codigo.
-4. Buscar produto por codigo (busca binaria em vetor ordenado por codigo).
-5. Buscar produtos por nome (busca linear em vetor nao ordenado).
-6. Registrar venda (reduz estoque, valida quantidade).
-7. Listar produtos ordenados por codigo (vetor ordenado).
-8. Listar produtos por categoria (filtro).
-9. Relatorio de estoque baixo (quantidade < limite configuravel).
-10. Salvar e carregar dados em arquivo (CSV ou JSON).
+## 🗂️ Estrutura de arquivos
+- `main.py`: menu e fluxo da aplicação.
+- `estoque.py`: cadastro, leitura, validação de dados e buscas.
+- `produto.py`: edição, remoção, vendas e relatórios.
+- `arquivos.py`: persistência de dados e logs.
 
-## Requisitos nao funcionais (obrigatorios)
-- Interface por terminal com menu claro.
-- Dados persistidos em arquivo.
-- Codigo organizado em modulos e funcoes.
-- Tratamento de erros de entrada (numero, texto, vazio).
-- Complexidade explicada: justificar uso de busca linear e binaria.
+## ▶️ Como executar
+1. Abra o terminal na pasta do projeto.
+2. Execute `python main.py`.
+3. Use o menu para escolher as opções.
+4. Para salvar ou carregar dados, escolha a opção 11 no menu principal.
+## 🖥️ Exemplo de execução
+```text
+---------- MENU ---------
+1 - Cadastrar Produto
+2 - Editar produto
+3 - Remover produto
+4 - Buscar produto por código
+5 - Buscar produto por nome
+6 - Registrar venda (reduz estoque, valida quantidade)
+7 - Listar produtos por código
+8 - Listar produtos por categoria
+9 - Relatório de estoque baixo (quantidade < limite configurável)
+10 - Relatório de menor/maior preço
+11 - Salvar e carregar dados em arquivo (CSV ou JSON)
+0 - Sair
+Escolha a opção: 1
+Digite o código do produto: 10
+Digite o nome do produto: Caneta
+Digite a categoria do produto: Escritório
+Digite o preço (R$): 2.50
+Digite a quantidade: 100
+Produto cadastrado com sucesso!
 
-## Requisitos nao funcionais (nao obrigatorios, mas recomendados)
-- Logs simples de operacoes (data/hora).
-- Mensagens amigaveis ao usuario.
-- Paginacao simples na listagem.
+Escolha a opção: 4
+Digite o código do produto: 10
+Código: 10
+Nome: Caneta
+Categoria: Escritório
+Preço: 2.5
+Quantidade: 100
 
-## Regras de negocio
-- Nao permitir codigo duplicado.
-- Nao permitir venda com estoque insuficiente.
-- Preco deve ser positivo.
-- Quantidade nao pode ser negativa.
+Escolha a opção: 11
+1 - Salvar dados
+2 - Carregar dados
+Escolha a opção: 1
+Dados salvos em: dados.json
+```
+## 📌 Exemplo de uso do menu
+- `1` - Cadastrar produto
+- `4` - Buscar produto por código
+- `5` - Buscar produto por nome
+- `6` - Registrar venda
+- `7` - Listar produtos por código
+- `11` - Salvar ou carregar dados
 
-## Estrutura sugerida (arquivos)
-- main.py (menu e fluxo)
-- produto.py (classe/estrutura e validacoes)
-- estoque.py (operacoes de cadastro e busca)
-- arquivos.py (salvar/carregar)
+## 🧹 Observações sobre o estilo de código
+- O projeto segue PEP 8 em grande parte:
+  - funções e variáveis usam `snake_case`.
+  - indentação é de 4 espaços.
+  - imports estão organizados por módulo.
+- O código está modularizado para separar responsabilidades.
 
-## Requisitos de dados
-- Vetor nao ordenado para cadastro inicial e buscas por nome.
-- Vetor ordenado por codigo para busca binaria.
-- Operacoes devem manter o vetor ordenado ao inserir/remover.
+## 📋 Requisitos atendidos
+- Interface por terminal clara.
+- Persistência de dados em arquivo JSON.
+- Validação de entradas numéricas e de texto.
+- Busca binária em vetor ordenado para código.
+- Busca linear em vetor não ordenado para nome.
+- Validação de código duplicado e estoque insuficiente.
+- Preço positivo e quantidade não negativa.
 
-## Versionamento e boas praticas (obrigatorio)
-- Usar Git com commits pequenos e mensagens claras.
-- Criar repositorio no GitHub e enviar o codigo.
-- Escrever README com como executar e exemplos.
-- Seguir PEP 8 (nomes, identacao, organizacao).
-- Usar funcoes pequenas e responsaveis.
-- Evitar codigo duplicado.
+## 📝 Observações finais
+O armazenamento utiliza dois vetores em memória:
+- `produtos`: vetor não ordenado, usado para busca por nome e relatórios gerais.
+- `produtos_ordenados`: vetor ordenado por código, usado para busca binária e listagem ordenada.
 
-## Entregaveis
-- Codigo fonte completo.
-- Arquivo de dados de exemplo.
-- README com instrucoes.
-- Relatorio curto explicando escolhas de busca e ordenacao.
-
-## Criterios de avaliacao
-- Funciona sem erros.
-- Atende todos os requisitos obrigatorios.
-- Usa busca binaria em vetor ordenado corretamente.
-- Persistencia de dados funcionando.
-- Codigo limpo e organizado.
+O sistema foi desenvolvido com foco em legibilidade, modularidade e transparência do comportamento esperado.

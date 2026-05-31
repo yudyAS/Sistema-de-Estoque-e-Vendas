@@ -50,7 +50,10 @@ def carregar_dados(caminho: str = CAMINHO_PADRAO) -> None:
         return
 
     produtos.clear()
-    produtos.extend(sorted(dados, key=lambda produto: produto.get("codigo", 0)))
+    produtos.extend(dados)
+    from estoque import produtos_ordenados
+    produtos_ordenados.clear()
+    produtos_ordenados.extend(sorted(produtos, key=lambda produto: produto.get("codigo", 0)))
     print(f"Dados carregados com sucesso de: {caminho}")
     log_operacao(f"Carregar dados: {caminho}")
     time.sleep(2)

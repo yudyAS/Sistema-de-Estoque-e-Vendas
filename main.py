@@ -1,5 +1,5 @@
 from produto import listar_produtos_codigo, listar_produtos_categoria, remover_produto, registrar_venda, relatorio_estoque_baixo, relatorio_preco_min_max, editar_produto
-from estoque import cadastrar_produto, inserir_ordenado, buscar_codigo, buscar_nome, busca_binaria
+from estoque import cadastrar_produto, buscar_codigo, buscar_nome
 from arquivos import salvar_dados, carregar_dados
 
 while True:

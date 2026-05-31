@@ -1,12 +1,12 @@
 from arquivos import log_operacao
-from estoque import produtos, busca_binaria, ler_inteiro, ler_float, ler_texto, pausar_paginacao
+from estoque import produtos, produtos_ordenados, busca_binaria, ler_inteiro, ler_float, ler_texto, pausar_paginacao
 
 
 def editar_produto():
 
     codigo = ler_inteiro("Digite o código do produto: ", min_value=1)
 
-    indice = busca_binaria(produtos, codigo)
+    indice = busca_binaria(produtos_ordenados, codigo)
 
     if indice != -1:
 
@@ -27,13 +27,14 @@ def editar_produto():
             return
 
         # Edição do produto
-        produtos[indice]["nome"] = novo_nome
-        produtos[indice]["catg"] = nova_categoria
-        produtos[indice]["preco"] = novo_preco
-        produtos[indice]["qtd"] = nova_qtd
+        produto = produtos_ordenados[indice]
+        produto["nome"] = novo_nome
+        produto["catg"] = nova_categoria
+        produto["preco"] = novo_preco
+        produto["qtd"] = nova_qtd
 
         print("Produto editado com sucesso!")
-        log_operacao(f"Editar produto: código {codigo}, nome {novo_nome}, categoria {nova_categoria}, preço {nova_preco}, quantidade {nova_qtd}")
+        log_operacao(f"Editar produto: código {codigo}, nome {novo_nome}, categoria {nova_categoria}, preço {novo_preco}, quantidade {nova_qtd}")
 
     else:
         print("Produto não encontrado.")
@@ -43,10 +44,11 @@ def remover_produto():
 
     codigo = ler_inteiro("Digite o código do produto que deseja remover: ", min_value=1)
 
-    indice = busca_binaria(produtos, codigo)
+    indice = busca_binaria(produtos_ordenados, codigo)
 
     if indice != -1:
-        produto_removido = produtos.pop(indice)
+        produto_removido = produtos_ordenados.pop(indice)
+        produtos.remove(produto_removido)
         print(f"Produto {produto_removido['nome']} removido com sucesso!")
         log_operacao(f"Remover produto: código {codigo}, nome {produto_removido['nome']}")
     else:
@@ -57,7 +59,7 @@ def registrar_venda():
 
     codigo = ler_inteiro("Digite o código do produto: ", min_value=1)
 
-    indice = busca_binaria(produtos, codigo)
+    indice = busca_binaria(produtos_ordenados, codigo)
 
     if indice == -1:
         print("Produto não encontrado.")
@@ -65,15 +67,17 @@ def registrar_venda():
 
     quantidade_venda = ler_inteiro("Digite a quantidade vendida: ", min_value=1)
 
-    if quantidade_venda > produtos[indice]["qtd"]:
+    produto = produtos_ordenados[indice]
+
+    if quantidade_venda > produto["qtd"]:
         print("Estoque insuficiente.")
         return
 
-    produtos[indice]["qtd"] -= quantidade_venda
+    produto["qtd"] -= quantidade_venda
 
     print("Venda registrada com sucesso!")
-    print(f"Estoque restante: {produtos[indice]['qtd']}")
-    log_operacao(f"Registrar venda: código {codigo}, quantidade {quantidade_venda}, estoque restante {produtos[indice]['qtd']}")
+    print(f"Estoque restante: {produto['qtd']}")
+    log_operacao(f"Registrar venda: código {codigo}, quantidade {quantidade_venda}, estoque restante {produto['qtd']}")
 
 #Relatorio de estoque baixo (quantidade < limite configuravel)
 def relatorio_estoque_baixo():
@@ -104,12 +108,12 @@ def relatorio_estoque_baixo():
     log_operacao(f"Relatório estoque baixo: limite {limite}, encontrados {total}")
 
 def listar_produtos_codigo():
-    if not produtos:
+    if not produtos_ordenados:
         print("Nenhum produto cadastrado.")
         return
 
-    total = len(produtos)
-    for i, produto in enumerate(produtos, start=1):
+    total = len(produtos_ordenados)
+    for i, produto in enumerate(produtos_ordenados, start=1):
         print("-----------------------------")
         print(f"Código: {produto['codigo']}\nNome: {produto['nome']}\n"
             f"Categoria: {produto['catg']}\nPreço: {produto['preco']}\n"
